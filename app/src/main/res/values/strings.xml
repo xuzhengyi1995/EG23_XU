@@ -9,4 +9,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Start!</string>
     <string name="dummy_content">Project\nEG23</string>
+    <string name="welcome">Bonjour!</string>
+    <string name="title_activity_test">title_activity_test</string>
 </resources>
