@@ -7,8 +7,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="dummy_button">Start!</string>
-    <string name="dummy_content">Project\nEG23</string>
-    <string name="welcome">Bonjour!</string>
-    <string name="title_activity_test">title_activity_test</string>
+    <string name="dummy_button_start">Start!</string>
+    <string name="dummy_button_reg">Register</string>
+    <string name="dummy_content">Project EG23</string>
 </resources>
