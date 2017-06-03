@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.suke.widget.SwitchButton;
+
 import org.w3c.dom.Text;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -84,8 +86,6 @@ public class MainActivity extends AppCompatActivity
                         sDialog.dismissWithAnimation();
                     }
                 }).show();
-                TextView textView=(TextView) findViewById(R.id.test);
-                textView.setText("You click the image!");
             }
         });
 

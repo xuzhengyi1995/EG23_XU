@@ -8,7 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -36,6 +41,7 @@ public class SplashActivity extends AppCompatActivity {
     private final Handler goNext =new Handler();
     private Button goNextBtn;
     private View mContentView;
+    private ImageView bg_img;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -106,7 +112,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        goNextBtn = (Button) findViewById(R.id.dummy_button);
+        goNextBtn = (Button) findViewById(R.id.dummy_button_start);
         goNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,13 +126,14 @@ public class SplashActivity extends AppCompatActivity {
                 },100);
             }
         });
+        bg_img = (ImageView) findViewById(R.id.login_bg_img);
 
 
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.dummy_button_start).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -150,6 +157,13 @@ public class SplashActivity extends AppCompatActivity {
     private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
+
+        findViewById(R.id.fullscreen_content_login).setVisibility(View.INVISIBLE);
+        AlphaAnimation img_anim = new AlphaAnimation((float)0.1,(float)1);
+        bg_img.startAnimation(img_anim);
+        img_anim.setFillAfter(true);
+        img_anim.setDuration(2000);
+
         if (actionBar != null) {
             actionBar.hide();
         }
@@ -163,6 +177,12 @@ public class SplashActivity extends AppCompatActivity {
 
     @SuppressLint("InlinedApi")
     private void show() {
+        AlphaAnimation img_anim = new AlphaAnimation((float)1,(float)0.1);
+        bg_img.startAnimation(img_anim);
+        img_anim.setFillAfter(true);
+        img_anim.setDuration(1000);
+        findViewById(R.id.fullscreen_content_login).setVisibility(View.VISIBLE);
+
         // Show the system bar
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
