@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -24,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
-    private static final boolean AUTO_HIDE = true;
+    private static final boolean AUTO_HIDE = false;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -40,8 +42,12 @@ public class SplashActivity extends AppCompatActivity {
     private final Handler mHideHandler = new Handler();
     private final Handler goNext =new Handler();
     private Button goNextBtn;
+    private Button goRegBtn;
     private View mContentView;
     private ImageView bg_img;
+    private info_check check;
+    private TextView mEmailView;
+    private TextView mPasswordView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -116,19 +122,22 @@ public class SplashActivity extends AppCompatActivity {
         goNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goNext.postDelayed(new Runnable(){
-                    @Override
-                    public void run(){
-                        Intent intent = new Intent(SplashActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                },100);
+                attemptLogin();
+            }
+        });
+        goRegBtn = (Button) findViewById(R.id.dummy_button_reg);
+        goRegBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SplashActivity.this,RegActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         bg_img = (ImageView) findViewById(R.id.login_bg_img);
-
-
+        mEmailView = (TextView) findViewById(R.id.login_email);
+        mPasswordView = (TextView) findViewById(R.id.login_pwd);
+        check = new info_check();
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -180,7 +189,7 @@ public class SplashActivity extends AppCompatActivity {
         AlphaAnimation img_anim = new AlphaAnimation((float)1,(float)0.1);
         bg_img.startAnimation(img_anim);
         img_anim.setFillAfter(true);
-        img_anim.setDuration(1000);
+        img_anim.setDuration(600);
         findViewById(R.id.fullscreen_content_login).setVisibility(View.VISIBLE);
 
         // Show the system bar
@@ -200,5 +209,55 @@ public class SplashActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    private void attemptLogin() {
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        final String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !check.isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!check.isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            goNext.postDelayed(new Runnable(){
+                @Override
+                public void run(){
+                    Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+                    intent.putExtra("email",email);
+                    startActivity(intent);
+                    finish();
+                }
+            },100);
+        }
     }
 }
