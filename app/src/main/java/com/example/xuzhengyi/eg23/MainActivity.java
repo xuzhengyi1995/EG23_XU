@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
@@ -71,6 +72,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Create the list view
+        listView = (ListView) findViewById(R.id.listview);
+        listViewAdapter= new ListViewAdapter(this);
+        listView.setAdapter(listViewAdapter);
+        listViewAdapter.setMode(Attributes.Mode.Single);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO:Go to the sheet03 or sheet 04
+                Toast.makeText(MainActivity.this, "You have click "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -112,19 +126,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         build_btn();
-
-        //Create the list view
-        listView = (ListView) findViewById(R.id.listview);
-        listViewAdapter= new ListViewAdapter(this);
-        listView.setAdapter(listViewAdapter);
-        listViewAdapter.setMode(Attributes.Mode.Single);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO:Go to the sheet03 or sheet 04
-                ((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).open(true);
-            }
-        });
 
         TextView viewEmail = (TextView) findViewById(R.id.main_email);
         viewEmail.setText(email);
