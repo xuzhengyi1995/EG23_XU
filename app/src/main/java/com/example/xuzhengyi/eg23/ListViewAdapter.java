@@ -4,12 +4,15 @@ package com.example.xuzhengyi.eg23;
  * Created by XUZhengyi on 2017/6/4.
  */
 
+import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +20,21 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
+import static android.content.ContentValues.TAG;
+
+class ListObj{
+    public int r_bg;
+    public int r_mode;
+    public int r_weather;
+    public int r_type;
+    public String r_date;
+    public String r_data;
+};
 
 public class ListViewAdapter extends BaseSwipeAdapter {
 
@@ -27,6 +42,9 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     private int[] r_bg= new int[8];
     private int[] r_mode=new int[5];
     private int[] r_weather=new int[5];
+    private int[] r_type=new int[4];
+    private int num = 50;
+    private List<ListObj> listObj = new ArrayList<ListObj>();
     private Random random = new Random();
 
     public ListViewAdapter(Context mContext) {
@@ -53,6 +71,13 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         r_weather[3]=R.drawable.notes_sunny_on;
         r_weather[4]=R.drawable.notes_windy_on;
 
+        r_type[0]=R.drawable.ic_2joueurs;
+        r_type[1]=R.drawable.ic_coup;
+        r_type[2]=R.drawable.ic_manual;
+        r_type[3]=R.drawable.ic_sequen;
+
+        productData();
+
     }
 
     @Override
@@ -61,15 +86,9 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public View generateView(int position, ViewGroup parent) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.listview_item, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-            }
-        });
+    public View generateView(final int position, final ViewGroup parent) {
+        final View v = LayoutInflater.from(mContext).inflate(R.layout.listview_item, null);
+        final SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override
             public void onDoubleClick(SwipeLayout layout, boolean surface) {
@@ -79,7 +98,12 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                ListView listView = (ListView) parent.findViewById(R.id.listview);
+                TextView rp = (TextView)v.findViewById(R.id.real_position);
+                int real_position=Integer.parseInt((String)rp.getText());
+                delItem(real_position);
+                swipeLayout.close(true);
+                Toast.makeText(mContext, "Record deleted", Toast.LENGTH_SHORT).show();
             }
         });
         return v;
@@ -89,27 +113,34 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     public void fillValues(int position, View convertView) {
         View lv = convertView.findViewById(R.id.list_item_ll);
 
-        lv.setBackgroundResource(r_bg[Math.abs(random.nextInt())%8]);
+        lv.setBackgroundResource(this.listObj.get(position).r_bg);
         lv.getBackground().setAlpha(60);
 
         ImageView mode = (ImageView) convertView.findViewById(R.id.mode);
-        mode.setImageResource(r_mode[Math.abs(random.nextInt())%5]);
+        mode.setImageResource(this.listObj.get(position).r_mode);
 
         ImageView weather = (ImageView) convertView.findViewById(R.id.record_weather);
-        weather.setImageResource(r_weather[Math.abs(random.nextInt())%5]);
+        weather.setImageResource(this.listObj.get(position).r_weather);
+
+        ImageView type = (ImageView) convertView.findViewById(R.id.record_type);
+        type.setImageResource(this.listObj.get(position).r_type);
 
         TextView t = (TextView)convertView.findViewById(R.id.position);
-        t.setText(randomDate());
+        t.setText(this.listObj.get(position).r_date);
+
+        TextView rp = (TextView)convertView.findViewById(R.id.real_position);
+        rp.setText(Integer.toString(position));
+
     }
 
     @Override
     public int getCount() {
-        return 50;
+        return this.num;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return this.listObj.get(position);
     }
 
     @Override
@@ -136,5 +167,25 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         double randomDate = Math.random()*(max-min)+min;
         calendar.setTimeInMillis(Math.round(randomDate));
         return calendar.getTime().toLocaleString();
+    }
+
+    private void productData(){
+        for(int i=0;i<this.num;i++) {
+            ListObj temp = new ListObj();
+            temp.r_bg=r_bg[Math.abs(random.nextInt())%8];
+            temp.r_mode=r_mode[Math.abs(random.nextInt())%5];
+            temp.r_weather=r_weather[Math.abs(random.nextInt())%5];
+            temp.r_type=r_type[Math.abs(random.nextInt())%4];
+            temp.r_date=randomDate();
+            temp.r_data="Some memos here, or the review of the record";
+
+            this.listObj.add(i,temp);
+        }
+    }
+
+    private void delItem(int position) {
+        this.listObj.remove(position);
+        this.num--;
+        notifyDataSetChanged();
     }
 }

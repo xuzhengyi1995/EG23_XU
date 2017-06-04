@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "You have click "+position, Toast.LENGTH_SHORT).show();
             }
         });
+        build_btn();
     }
 
     @Override
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         imageView.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO:Go to sheet13
                 pDialog = new SweetAlertDialog(view.getContext());
                 pDialog.setTitleText("This is a Dialog plugs").setContentText("ContentText").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -125,7 +128,6 @@ public class MainActivity extends AppCompatActivity
                 connect(view);
             }
         });
-        build_btn();
 
         TextView viewEmail = (TextView) findViewById(R.id.main_email);
         viewEmail.setText(email);
@@ -133,11 +135,13 @@ public class MainActivity extends AppCompatActivity
     }
     private void build_btn(){
         SubActionButton.Builder intemBuilder = new SubActionButton.Builder(this);
+        com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams l_Params = new  com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams(170,170);
+
 
         //TODO:Change the button image
         ImageView t1 = new ImageView(this);
-        t1.setImageResource(R.drawable.ic_launcher);
-        SubActionButton btn_manuellement = intemBuilder.setContentView(t1).build();
+        t1.setImageResource(R.drawable.ic_manual);
+        SubActionButton btn_manuellement = intemBuilder.setContentView(t1).setLayoutParams(l_Params).build();
         btn_manuellement.setOnClickListener(new SubActionButton.OnClickListener(){
             @Override
             public void onClick(final View view) {
@@ -146,8 +150,8 @@ public class MainActivity extends AppCompatActivity
         });
 
         ImageView t2 = new ImageView(this);
-        t2.setImageResource(R.drawable.ic_launcher);
-        SubActionButton btn_coup = intemBuilder.setContentView(t2).build();
+        t2.setImageResource(R.drawable.ic_coup);
+        SubActionButton btn_coup = intemBuilder.setContentView(t2).setLayoutParams(l_Params).build();
         btn_coup.setOnClickListener(new SubActionButton.OnClickListener(){
             @Override
             public void onClick(final View view) {
@@ -156,8 +160,8 @@ public class MainActivity extends AppCompatActivity
         });
 
         ImageView t3 = new ImageView(this);
-        t3.setImageResource(R.drawable.ic_launcher);
-        SubActionButton btn_seqence = intemBuilder.setContentView(t3).build();
+        t3.setImageResource(R.drawable.ic_sequen);
+        SubActionButton btn_seqence = intemBuilder.setContentView(t3).setLayoutParams(l_Params).build();
         btn_seqence.setOnClickListener(new SubActionButton.OnClickListener(){
             @Override
             public void onClick(final View view) {
@@ -166,8 +170,8 @@ public class MainActivity extends AppCompatActivity
         });
 
         ImageView t4 = new ImageView(this);
-        t4.setImageResource(R.drawable.ic_launcher);
-        SubActionButton btn_2joueur = intemBuilder.setContentView(t4).build();
+        t4.setImageResource(R.drawable.ic_2joueurs);
+        SubActionButton btn_2joueur = intemBuilder.setContentView(t4).setLayoutParams(l_Params).build();
         btn_2joueur.setOnClickListener(new SubActionButton.OnClickListener(){
             @Override
             public void onClick(final View view) {
@@ -240,14 +244,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            //TODO:Go back
         } else if (id == R.id.nav_progress) {
+            //TODO:Go to sheet09
 
         } else if (id == R.id.nav_video) {
+            //TODO:Go to sheet10
 
         } else if (id == R.id.nav_support) {
+            //TODO:Go to sheet12
 
         } else if (id == R.id.nav_settings) {
+            //TODO:Go to sheet11
 
         }
 
