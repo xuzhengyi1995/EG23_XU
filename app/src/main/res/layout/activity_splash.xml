@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#ffffff"
     tools:context="com.example.xuzhengyi.eg23.SplashActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -45,16 +45,16 @@
             android:id="@+id/login_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="12"
-            android:hint="E-mail"
+            android:minEms="15"
+            android:hint="@string/prompt_email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/login_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="12"
-            android:hint="Password"
+            android:minEms="15"
+            android:hint="@string/prompt_password"
             android:inputType="textPassword" />
     </LinearLayout>
 
@@ -81,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/black_overlay"
+                android:background="@color/black_overlay_plus"
                 android:text="@string/dummy_button_start" />
 
             <Button

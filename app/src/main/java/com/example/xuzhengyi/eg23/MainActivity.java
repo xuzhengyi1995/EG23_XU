@@ -1,8 +1,13 @@
 package com.example.xuzhengyi.eg23;
 
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -15,9 +20,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.suke.widget.SwitchButton;
 
 import org.w3c.dom.Text;
@@ -28,22 +36,23 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SweetAlertDialog pDialog;
+    private String email;
+    public boolean is_clicked;
+    public ImageButton connectBtn;
+    public boolean blink_b;
+    public boolean is_on=false;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,7 +62,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -71,10 +79,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-
+    public void onWindowFocusChanged(boolean hasFocus) {
+        //After the window has been charged
         ImageView imageView=(ImageView) findViewById(R.id.imageView);
         imageView.setOnClickListener(new ImageView.OnClickListener() {
             @Override
@@ -88,25 +94,121 @@ public class MainActivity extends AppCompatActivity
                 }).show();
             }
         });
+        connectBtn = (ImageButton) findViewById(R.id.connect);
+        is_clicked=false;
+        connectBtn.setOnClickListener(new ImageButton.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                connect(view);
+            }
+        });
+        build_btn();
 
-        return true;
+        TextView viewEmail = (TextView) findViewById(R.id.main_email);
+        viewEmail.setText(email);
+        super.onWindowFocusChanged(hasFocus);
     }
+    private void build_btn(){
+        SubActionButton.Builder intemBuilder = new SubActionButton.Builder(this);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //TODO:Change the button image
+        ImageView t1 = new ImageView(this);
+        t1.setImageResource(R.drawable.ic_launcher);
+        SubActionButton btn_manuellement = intemBuilder.setContentView(t1).build();
+        btn_manuellement.setOnClickListener(new SubActionButton.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                //TODO:Go to sheet05
+            }
+        });
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        ImageView t2 = new ImageView(this);
+        t2.setImageResource(R.drawable.ic_launcher);
+        SubActionButton btn_coup = intemBuilder.setContentView(t2).build();
+        btn_coup.setOnClickListener(new SubActionButton.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                //TODO:Go to sheet06
+            }
+        });
+
+        ImageView t3 = new ImageView(this);
+        t3.setImageResource(R.drawable.ic_launcher);
+        SubActionButton btn_seqence = intemBuilder.setContentView(t3).build();
+        btn_seqence.setOnClickListener(new SubActionButton.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                //TODO:Go to sheet07
+            }
+        });
+
+        ImageView t4 = new ImageView(this);
+        t4.setImageResource(R.drawable.ic_launcher);
+        SubActionButton btn_2joueur = intemBuilder.setContentView(t4).build();
+        btn_2joueur.setOnClickListener(new SubActionButton.OnClickListener(){
+            @Override
+            public void onClick(final View view) {
+                //TODO:Go to sheet08
+            }
+        });
+
+
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(btn_manuellement)
+                .addSubActionView(btn_coup)
+                .addSubActionView(btn_seqence)
+                .addSubActionView(btn_2joueur)
+                .attachTo(fab).build();
+    };
+
+    public void connect(final View view)
+    {
+        if(!is_clicked) {
+            blink_b = true;
+            is_clicked = true;
+            if (!is_on) {
+                new CountDownTimer(2790, 279) {
+                    @Override
+                    public void onTick(long ms) {
+                        if (blink_b) {
+                            connectBtn.setImageResource(R.drawable.ic_sensor_enable);
+                            blink_b = false;
+                        } else {
+                            connectBtn.setImageResource(R.drawable.ic_sensor_disable);
+                            blink_b = true;
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        connectBtn.setImageResource(R.drawable.ic_sensor_enable);
+                        pDialog = new SweetAlertDialog(view.getContext());
+                        pDialog.setTitleText("Connected").setContentText("Connect to your sensor successfully").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        }).show();
+                        is_clicked = false;
+                        is_on=true;
+                    }
+                }.start();
+            }
+            else{
+                connectBtn.setImageResource(R.drawable.ic_sensor_disable);
+                pDialog = new SweetAlertDialog(view.getContext());
+                pDialog.setTitleText("Disconnected").setContentText("The sensor has been disconnected.").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                }).show();
+                is_clicked = false;
+                is_on=false;
+            }
         }
-
-        return super.onOptionsItemSelected(item);
-
-    }
+    };
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
