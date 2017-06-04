@@ -5,3 +5,4 @@
 * Sweet Alert Dialog : https://github.com/pedant/sweet-alert-dialog
 * SwitchButton : https://github.com/zcweng/SwitchButton
 * Android Swipe Layout : https://github.com/daimajia/AndroidSwipeLayout
+* CircularFloatingActionMenu : https://github.com/oguzbilgener/CircularFloatingActionMenu

@@ -20,10 +20,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.util.Attributes;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.suke.widget.SwitchButton;
@@ -42,6 +46,11 @@ public class MainActivity extends AppCompatActivity
     public boolean blink_b;
     public boolean is_on=false;
     private FloatingActionButton fab;
+
+    private ListViewAdapter listViewAdapter;
+    private ListView listView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +112,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
         build_btn();
+
+        //Create the list view
+        listView = (ListView) findViewById(R.id.listview);
+        listViewAdapter= new ListViewAdapter(this);
+        listView.setAdapter(listViewAdapter);
+        listViewAdapter.setMode(Attributes.Mode.Single);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO:Go to the sheet03 or sheet 04
+                ((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).open(true);
+            }
+        });
 
         TextView viewEmail = (TextView) findViewById(R.id.main_email);
         viewEmail.setText(email);

@@ -6,45 +6,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.xuzhengyi.eg23.MainActivity"
     tools:showIn="@layout/app_bar_main">
-        <com.daimajia.swipe.SwipeLayout
-            xmlns:swipe="http://schemas.android.com/apk/res-auto"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swipe_layout"
-            android:layout_width="368dp"
-            android:layout_height="wrap_content"
-            swipe:leftEdgeSwipeOffset="0dp"
-            swipe:rightEdgeSwipeOffset="0dp"
-            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#FF5534"
-                android:gravity="center">
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
-                <ImageView
-                    android:id="@+id/delete"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_menu_camera" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delete Item?"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/blue_button_background">
-
-                <TextView
-                    android:id="@+id/text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="item" />
-            </LinearLayout>
-        </com.daimajia.swipe.SwipeLayout>
 </android.support.constraint.ConstraintLayout>
