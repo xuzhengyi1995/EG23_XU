@@ -7,10 +7,12 @@ package com.example.xuzhengyi.eg23;
 import android.app.LauncherActivity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -98,10 +100,22 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListView listView = (ListView) parent.findViewById(R.id.listview);
                 TextView rp = (TextView)v.findViewById(R.id.real_position);
-                int real_position=Integer.parseInt((String)rp.getText());
-                delItem(real_position);
+
+                AlphaAnimation img_anim = new AlphaAnimation((float)1,(float)0);
+                v.startAnimation(img_anim);
+                img_anim.setFillAfter(false);
+                img_anim.setDuration(1000);
+
+                final int real_position=Integer.parseInt((String)rp.getText());
+                Handler goNext =new Handler();
+                goNext.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        delItem(real_position);
+                    }
+                },1000);
+
                 swipeLayout.close(true);
                 Toast.makeText(mContext, "Record deleted", Toast.LENGTH_SHORT).show();
             }
@@ -188,6 +202,7 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     }
 
     private void delItem(int position) {
+
         this.listObj.remove(position);
         this.num--;
         notifyDataSetChanged();
