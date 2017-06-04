@@ -128,8 +128,12 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         TextView t = (TextView)convertView.findViewById(R.id.position);
         t.setText(this.listObj.get(position).r_date);
 
+        TextView data = (TextView)convertView.findViewById(R.id.text_data);
+        data.setText(this.listObj.get(position).r_data);
+
         TextView rp = (TextView)convertView.findViewById(R.id.real_position);
         rp.setText(Integer.toString(position));
+
 
     }
 
@@ -177,7 +181,7 @@ public class ListViewAdapter extends BaseSwipeAdapter {
             temp.r_weather=r_weather[Math.abs(random.nextInt())%5];
             temp.r_type=r_type[Math.abs(random.nextInt())%4];
             temp.r_date=randomDate();
-            temp.r_data="Some memos here, or the review of the record";
+            temp.r_data=temp.r_date+" : Some memos here, or the review of the record";
 
             this.listObj.add(i,temp);
         }
