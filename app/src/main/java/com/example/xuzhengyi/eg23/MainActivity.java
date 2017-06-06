@@ -22,9 +22,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,9 @@ import com.suke.widget.SwitchButton;
 import org.w3c.dom.Text;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static java.lang.System.console;
+import static java.lang.System.err;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         build_btn();
+        build_spinner();
     }
 
     @Override
@@ -133,6 +139,39 @@ public class MainActivity extends AppCompatActivity
         viewEmail.setText(email);
         super.onWindowFocusChanged(hasFocus);
     }
+
+    private void build_spinner(){
+        final String[] type={"All","Manual","Coup","Séquence","2Joueur"};
+        final int[] rid={
+                0,
+                R.drawable.ic_manual,
+                R.drawable.ic_coup,
+                R.drawable.ic_sequen,
+                R.drawable.ic_2joueurs};
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinner_item,type);
+
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        spinner.setAdapter(adapter);
+        spinner.setVisibility(View.VISIBLE);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                boolean t=true;
+                if(position==0){
+                    t=false;
+                }
+                listViewAdapter.aplyFliter(t,rid[position]);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+
+
+    }
+
     private void build_btn(){
         SubActionButton.Builder intemBuilder = new SubActionButton.Builder(this);
         com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams l_Params = new  com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams(170,170);

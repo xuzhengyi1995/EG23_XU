@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import static android.content.ContentValues.TAG;
 
@@ -47,7 +49,11 @@ public class ListViewAdapter extends BaseSwipeAdapter {
     private int[] r_type=new int[4];
     private int num = 50;
     private List<ListObj> listObj = new ArrayList<ListObj>();
+    private List<ListObj> listObj_backup = new ArrayList<ListObj>();
     private Random random = new Random();
+    private boolean is_filter=false;
+    private int filter;
+    private int s;
 
     public ListViewAdapter(Context mContext) {
         this.mContext = mContext;
@@ -139,21 +145,19 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         ImageView type = (ImageView) convertView.findViewById(R.id.record_type);
         type.setImageResource(this.listObj.get(position).r_type);
 
-        TextView t = (TextView)convertView.findViewById(R.id.position);
+        TextView t = (TextView) convertView.findViewById(R.id.position);
         t.setText(this.listObj.get(position).r_date);
 
-        TextView data = (TextView)convertView.findViewById(R.id.text_data);
+        TextView data = (TextView) convertView.findViewById(R.id.text_data);
         data.setText(this.listObj.get(position).r_data);
 
-        TextView rp = (TextView)convertView.findViewById(R.id.real_position);
+        TextView rp = (TextView) convertView.findViewById(R.id.real_position);
         rp.setText(Integer.toString(position));
-
-
     }
 
     @Override
     public int getCount() {
-        return this.num;
+        return listObj.size();
     }
 
     @Override
@@ -198,13 +202,50 @@ public class ListViewAdapter extends BaseSwipeAdapter {
             temp.r_data=temp.r_date+" : Some memos here, or the review of the record";
 
             this.listObj.add(i,temp);
+            this.listObj_backup.add(i,temp);
+        }
+
+    }
+
+    private void _clone() {
+        listObj.clear();
+        for(int i=0;i<listObj_backup.size();i++){
+            listObj.add(i,listObj_backup.get(i));
         }
     }
 
+
     private void delItem(int position) {
 
+        this.listObj_backup.remove(position);
         this.listObj.remove(position);
         this.num--;
+        notifyDataSetChanged();
+    }
+
+    public void aplyFliter(boolean _is_filter,int _filter){
+        _clone();
+        if(!_is_filter){
+            this.is_filter=false;
+            this.filter=0;
+        }
+        else{
+            this.is_filter=true;
+            this.filter=_filter;
+            this.listObj.removeIf(new Predicate<ListObj>() {
+                @Override
+                public boolean test(ListObj listObj) {
+                    boolean t;
+                    if(listObj.r_type==filter){
+                        t=false;
+                    }
+                    else{
+                        t=true;
+                    }
+                    return t;
+                }
+            });
+        }
         notifyDataSetChanged();
     }
 }
