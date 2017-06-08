@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="actionBarStyle"> @style/MyActionBarStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -30,6 +31,10 @@
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">#767676</item>
+    </style>
+
+    <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="contentInsetStart">0dp</item>
     </style>
 
 </resources>

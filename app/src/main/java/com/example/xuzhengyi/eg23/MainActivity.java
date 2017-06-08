@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.*;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -87,7 +88,17 @@ public class MainActivity extends AppCompatActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO:Go to the sheet03 or sheet 04
+                int go_type=listViewAdapter.get_type(position);
+                if(go_type==R.drawable.ic_2joueurs){
+                    Intent intent = new Intent(MainActivity.this, Detail2Activity.class);
+                    intent.putExtra("position",position);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                }
                 Toast.makeText(MainActivity.this, "You have click "+position, Toast.LENGTH_SHORT).show();
             }
         });
@@ -117,13 +128,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 //TODO:Go to sheet13
-                pDialog = new SweetAlertDialog(view.getContext());
-                pDialog.setTitleText("This is a Dialog plugs").setContentText("ContentText").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                    }
-                }).show();
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("email",email);
+                startActivity(intent);
             }
         });
         connectBtn = (ImageButton) findViewById(R.id.connect);
@@ -177,7 +184,7 @@ public class MainActivity extends AppCompatActivity
         com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams l_Params = new  com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams(170,170);
 
 
-        //TODO:Change the button image
+        //Done:Change the button image
         ImageView t1 = new ImageView(this);
         t1.setImageResource(R.drawable.ic_manual);
         SubActionButton btn_manuellement = intemBuilder.setContentView(t1).setLayoutParams(l_Params).build();
@@ -185,6 +192,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(final View view) {
                 //TODO:Go to sheet05
+                Intent intent = new Intent(MainActivity.this, SetManuellementActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -195,6 +204,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(final View view) {
                 //TODO:Go to sheet06
+                Intent intent = new Intent(MainActivity.this, SetCoupActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -205,6 +216,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(final View view) {
                 //TODO:Go to sheet07
+                Intent intent = new Intent(MainActivity.this, SetSequenceActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -215,6 +228,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(final View view) {
                 //TODO:Go to sheet08
+                Intent intent = new Intent(MainActivity.this, StatusActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -286,15 +301,23 @@ public class MainActivity extends AppCompatActivity
             //TODO:Go back
         } else if (id == R.id.nav_progress) {
             //TODO:Go to sheet09
+            Intent intent = new Intent(MainActivity.this, ProgressActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_video) {
             //TODO:Go to sheet10
+            Intent intent = new Intent(MainActivity.this, VideoActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_support) {
             //TODO:Go to sheet12
+            Intent intent = new Intent(MainActivity.this, SupportActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_settings) {
             //TODO:Go to sheet11
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
 
         }
 

@@ -248,4 +248,8 @@ public class ListViewAdapter extends BaseSwipeAdapter {
         }
         notifyDataSetChanged();
     }
+
+    public int get_type(int position) {
+        return listObj.get(position).r_type;
+    }
 }
