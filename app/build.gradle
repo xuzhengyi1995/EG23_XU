@@ -35,5 +35,6 @@ dependencies {
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     testCompile 'junit:junit:4.12'
 }
