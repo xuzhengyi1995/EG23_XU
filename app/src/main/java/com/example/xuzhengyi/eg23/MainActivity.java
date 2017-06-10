@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(final View view) {
                 //TODO:Go to sheet08
                 Intent intent = new Intent(MainActivity.this, StatusActivity.class);
+                intent.putExtra("p",true);
                 startActivity(intent);
             }
         });
