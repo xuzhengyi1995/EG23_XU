@@ -6,49 +6,134 @@
     android:layout_height="match_parent"
     tools:context="com.example.xuzhengyi.eg23.SetManuellementActivity">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <include
+            layout="@layout/app_bar_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:weightSum="1">
 
-            <include layout="@layout/app_bar_other"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
+            <TimePicker
+                android:id="@+id/timePicker3"
+                android:layout_width="184dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:timePickerMode="spinner" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.30"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <EditText
-                    android:id="@+id/editText4"
-                    android:layout_width="174dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.02"
-                    android:ems="10"
-                    android:inputType="time"
-                    android:text="15 : 00"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.02"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="下拉选项" />
-
-            </LinearLayout>
-
+                android:layout_weight="1"
+                android:entries="@array/exercise_arrays"
+                android:prompt="@string/list_exercise" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TimePicker
+                android:id="@+id/timePicker4"
+                android:layout_width="184dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:timePickerMode="spinner" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/exercise_arrays"
+                android:prompt="@string/list_exercise" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="184dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:timePickerMode="spinner" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/exercise_arrays"
+                android:prompt="@string/list_exercise" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TimePicker
+                android:id="@+id/timePicker2"
+                android:layout_width="184dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:timePickerMode="spinner" />
+
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/exercise_arrays"
+                android:prompt="@string/list_exercise" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_light"
+
+                android:text="Start"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
