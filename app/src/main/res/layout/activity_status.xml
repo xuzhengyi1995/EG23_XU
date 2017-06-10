@@ -51,7 +51,7 @@
                 android:orientation="horizontal"
                 android:layout_weight="1">
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/start_s"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/holo_blue_light"
@@ -65,7 +65,7 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/stop_s"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/holo_red_light"
