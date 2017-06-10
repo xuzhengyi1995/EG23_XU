@@ -25,43 +25,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/editText3"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/include"
-            android:layout_marginTop="150dp"
-            android:ems="10"
-            android:inputType="time"
-            android:text="10 : 30"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="36sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
+            <TimePicker
+                android:id="@+id/timePicker2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.37"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom|center_horizontal"
-            android:weightSum="1">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:layout_weight="1">
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="155dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.89"
-                android:background="@android:color/holo_blue_light"
-                android:text="Start" />
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/holo_blue_light"
+                    android:text="Start" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="191dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/holo_red_light"
-                android:text="Stop" />
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/holo_red_light"
+                    android:text="Stop" />
+            </LinearLayout>
         </LinearLayout>
 
 
