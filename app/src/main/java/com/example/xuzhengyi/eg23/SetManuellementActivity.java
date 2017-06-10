@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.widget.NumberPicker;
+import android.widget.TimePicker;
 
 public class SetManuellementActivity extends AppCompatActivity {
 
@@ -25,5 +30,14 @@ public class SetManuellementActivity extends AppCompatActivity {
 
         TextView head = (TextView) findViewById(R.id.app_bar_other_head);
         head.setText("Manuellement");
+
+        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+        timePicker = (TimePicker) findViewById(R.id.timePicker2);
+        timePicker.setIs24HourView(true);
+        timePicker = (TimePicker) findViewById(R.id.timePicker3);
+        timePicker.setIs24HourView(true);
+        timePicker = (TimePicker) findViewById(R.id.timePicker4);
+        timePicker.setIs24HourView(true);
     }
 }

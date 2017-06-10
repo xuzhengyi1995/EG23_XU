@@ -31,16 +31,14 @@
 
             <TimePicker
                 android:id="@+id/timePicker3"
-                android:layout_width="184dp"
+                android:layout_width="wrap_content"
                 android:layout_height="75dp"
-                android:layout_weight="1"
                 android:timePickerMode="spinner" />
 
             <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:entries="@array/exercise_arrays"
                 android:prompt="@string/list_exercise" />
 
@@ -54,16 +52,14 @@
 
             <TimePicker
                 android:id="@+id/timePicker4"
-                android:layout_width="184dp"
+                android:layout_width="wrap_content"
                 android:layout_height="75dp"
-                android:layout_weight="1"
                 android:timePickerMode="spinner" />
 
             <Spinner
                 android:id="@+id/spinner2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:entries="@array/exercise_arrays"
                 android:prompt="@string/list_exercise" />
 
@@ -77,16 +73,14 @@
 
             <TimePicker
                 android:id="@+id/timePicker"
-                android:layout_width="184dp"
+                android:layout_width="wrap_content"
                 android:layout_height="75dp"
-                android:layout_weight="1"
                 android:timePickerMode="spinner" />
 
             <Spinner
                 android:id="@+id/spinner3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:entries="@array/exercise_arrays"
                 android:prompt="@string/list_exercise" />
 
@@ -100,9 +94,8 @@
 
             <TimePicker
                 android:id="@+id/timePicker2"
-                android:layout_width="184dp"
+                android:layout_width="wrap_content"
                 android:layout_height="75dp"
-                android:layout_weight="1"
                 android:timePickerMode="spinner" />
 
 
@@ -110,7 +103,6 @@
                 android:id="@+id/spinner4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:entries="@array/exercise_arrays"
                 android:prompt="@string/list_exercise" />
 
