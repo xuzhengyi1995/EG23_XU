@@ -40,6 +40,7 @@ import java.util.List;
 public class Detail2Activity extends AppCompatActivity {
     private IndicatorViewPager indicatorViewPager;
     private int[] chart={0,R.id.chart,R.id.chart2};
+    private boolean is_draw=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,10 @@ public class Detail2Activity extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus){
-        Draw_summary_chart();
+        if(!is_draw) {
+            Draw_summary_chart();
+            is_draw = true;
+        }
     }
 
     private void Draw_summary_chart() {
