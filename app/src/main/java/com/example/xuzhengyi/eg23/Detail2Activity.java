@@ -16,11 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
@@ -32,7 +39,7 @@ import java.util.List;
 
 public class Detail2Activity extends AppCompatActivity {
     private IndicatorViewPager indicatorViewPager;
-    private int[] chart={R.id.chart,R.id.chart2};
+    private int[] chart={0,R.id.chart,R.id.chart2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +74,65 @@ public class Detail2Activity extends AppCompatActivity {
         indicatorViewPager.setOnIndicatorPageChangeListener(new IndicatorViewPager.OnIndicatorPageChangeListener() {
             @Override
             public void onIndicatorPageChange(int preItem, int currentItem) {
-                Draw_pie(chart[currentItem]);
+                if(currentItem==1||currentItem==2)
+                    Draw_pie(chart[currentItem]);
             }
         });
     }
 
-    public void Draw_pie(int p){
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        Draw_summary_chart();
+    }
+
+    private void Draw_summary_chart() {
+        int[] joueur1={47,29,21,28,80,30,49,18};
+        int[] joueur2={40,35,25,31,90,31,52,22};
+        final String[] quarters={"SE","SM","VR","VC","CDL","CDS","RL","RS"};
+
+        List<BarEntry> entriesjoueur1 = new ArrayList<>();
+        List<BarEntry> entriesjoueur2 = new ArrayList<>();
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return quarters[(int) value];
+            }
+        };
+
+        for(int i=0;i<joueur1.length;i++) {
+            entriesjoueur1.add(new BarEntry(i,joueur1[i]));
+            entriesjoueur2.add(new BarEntry(i,joueur2[i]));
+        }
+
+        BarDataSet set1 = new BarDataSet(entriesjoueur1, "Joueur 1");
+        BarDataSet set2 = new BarDataSet(entriesjoueur2, "Joueur 2");
+
+        set1.setColor(ColorTemplate.JOYFUL_COLORS[0]);
+        set2.setColor(ColorTemplate.JOYFUL_COLORS[1]);
+
+        float groupSpace = 0.06f;
+        float barSpace = 0.02f;
+        float barWidth = 0.45f;
+
+        BarChart barChart = (BarChart) findViewById(R.id.summary_chart);
+        Description description = new Description();
+        description.setText("Compare");
+        barChart.setDescription(description);
+        BarData data = new BarData(set1, set2);
+        data.setBarWidth(barWidth);
+        barChart.setData(data);
+        barChart.animateXY(3000,3000);
+        barChart.groupBars(-0.5f, groupSpace, barSpace);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(formatter);
+
+        barChart.invalidate();
+    }
+
+    private void Draw_pie(int p){
         PieChart chart=(PieChart) findViewById(p);
         List<PieEntry> entries =new ArrayList<PieEntry>();
         entries.add(new PieEntry(47l,""));
@@ -99,9 +159,10 @@ public class Detail2Activity extends AppCompatActivity {
 
     }
 
+    //IndicatorViewPage adapter
     private class MyAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
-        private String[] versions = {"Joueur1", "Joueur2"};
-        private int[] r={R.layout.detail_layout,R.layout.detail2_layout};
+        private String[] versions = {"Summary","Joueur1", "Joueur2"};
+        private int[] r={R.layout.summary_layout,R.layout.detail_layout,R.layout.detail2_layout};
 
         @Override
         public int getCount() {
@@ -116,8 +177,8 @@ public class Detail2Activity extends AppCompatActivity {
             TextView textView = (TextView) convertView;
             textView.setText(versions[position]);
 
-            int witdh = getTextWidth(textView);
-            textView.setWidth((int) (witdh * 1.3f));
+            int width = getTextWidth(textView);
+            textView.setWidth((int) (width * 1.3f));
 
             return convertView;
         }
