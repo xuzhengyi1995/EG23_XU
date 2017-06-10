@@ -14,7 +14,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <include layout="@layout/app_bar_other"
+        <include layout="@layout/app_bar_progress"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 

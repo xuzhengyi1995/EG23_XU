@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -50,7 +52,17 @@ public class ProgressActivity extends AppCompatActivity {
         });
 
         TextView head = (TextView) findViewById(R.id.app_bar_other_head);
-        head.setText("Progress");
+        head.setText("");
+
+        final String[] type={"Service","Smash","Volée revers","Volée coup drt","Coup droit lifté","Coup droit slicé","Revers lifté","Revers slicé"};
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_pro);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.spinner_item,type);
+
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        spinner.setAdapter(adapter);
+        spinner.setVisibility(View.VISIBLE);
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.moretab_viewPager);
         ScrollIndicatorView scrollIndicatorView = (ScrollIndicatorView) findViewById(R.id.moretab_indicator);

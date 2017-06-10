@@ -1,5 +1,6 @@
 package com.example.xuzhengyi.eg23;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,9 +37,12 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void onBackPressed(){
+        Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+        intent.putExtra("email","test@test.fr");
+        startActivity(intent);
     }
+
 
     public void Draw_pie(){
         PieChart chart=(PieChart) findViewById(R.id.chart);

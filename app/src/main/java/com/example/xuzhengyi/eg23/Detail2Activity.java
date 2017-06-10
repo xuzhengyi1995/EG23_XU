@@ -1,6 +1,7 @@
 package com.example.xuzhengyi.eg23;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -87,6 +88,13 @@ public class Detail2Activity extends AppCompatActivity {
             Draw_summary_chart();
             is_draw = true;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Detail2Activity.this, MainActivity.class);
+        intent.putExtra("email","test@test.fr");
+        startActivity(intent);
     }
 
     private void Draw_summary_chart() {

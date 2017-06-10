@@ -114,8 +114,8 @@ public class StatusActivity extends AppCompatActivity {
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(SweetAlertDialog sDialog) {
-                                    joueur2=false;
-                                    goback();
+                                    Intent intent = new Intent(StatusActivity.this, Detail2Activity.class);
+                                    startActivity(intent);
                                 }
                                  }).show();
                         break;
@@ -181,7 +181,8 @@ public class StatusActivity extends AppCompatActivity {
                     }).show();
         }
         else {
-            super.onBackPressed();
+            Intent intent = new Intent(StatusActivity.this, DetailActivity.class);
+            startActivity(intent);
         }
     }
 }
