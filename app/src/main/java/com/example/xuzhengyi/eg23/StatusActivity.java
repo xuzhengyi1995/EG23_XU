@@ -127,6 +127,7 @@ public class StatusActivity extends AppCompatActivity {
 
         Button start = (Button) findViewById(R.id.start_s);
         Button stop = (Button) findViewById(R.id.stop_s);
+        Button end = (Button) findViewById(R.id.end_s);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +140,12 @@ public class StatusActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 handler.sendEmptyMessage(1);
+            }
+        });
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
